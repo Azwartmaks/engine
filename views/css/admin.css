@@ -1,0 +1,41 @@
+.navbar h2{
+    color: #fff;
+}
+.radius-none{
+    border-radius: 0px;
+}
+.table-box{
+    clear: both;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+.table-box.blue{
+    border: 1px solid #b4cef8;
+    border-top: 0;
+}
+.table-box-title{
+    padding: 8px 10px 5px 10px;
+    border-bottom: 1px solid #eee;
+    color: #fff !important;
+}
+.blue .table-box-title{
+    background-color: #4b8df8 !important;
+}
+.table-box table{
+    margin-top: 20px;
+}
+.col-centered{
+    float: none;
+}
+.form-control{
+    margin: 5px 0px;
+}
+.table-box-body{
+    padding: 10px 15px;
+}
+.table-box thead{
+    font-weight: bold;
+}
+textarea.form-control{
+    height: 200px;
+}
