@@ -1,14 +1,12 @@
-<div class="main-slider">
-    <ul class="bxslider">
-        <li><img src="views/images/inf.jpg" width="1140" height="520"/></li>
-        <li><img src="views/images/pedestal-spoiler.jpg" width="1140" height="520"/></li>
-        <li><img src="views/images/slide-3.jpg" width="1140" height="520"/></li>
-    </ul>
-</div>
-<div class="wrapper">
-    <div class="content col-sm-8">
-        <div class="main-banner">
-            <img src="views/images/bg_header.jpg" class="responsive">
+
+<div class="row wrapper">
+    <div class="content col-sm-9">
+        <div class="main-slider">
+            <ul class="bxslider">
+                <li><img src="views/images/inf.jpg" width="1140" height="520"/></li>
+                <li><img src="views/images/pedestal-spoiler.jpg" width="1140" height="520"/></li>
+                <li><img src="views/images/slide-3.jpg" width="1140" height="520"/></li>
+            </ul>
         </div>
         <hr/>
         <h1>Performance Accessories</h1>
@@ -50,7 +48,7 @@
         </p>    
 
     </div>
-    <div class="sidebar col-sm-4">
+    <div class="sidebar col-sm-3">
         <?php //var_dump($this->products);?>
         <div class="side-block first">
             <div class="side-h2">

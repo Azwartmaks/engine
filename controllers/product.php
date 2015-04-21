@@ -34,6 +34,7 @@ class Product extends Controller{
                 ucwords($this->productName);
         }else{
             $this->parentProduct = $this->model->getProductById($this->parentId);
+            $this->view->subtype = true;
             $this->view->breadcrumbs = "<a href='/'>Home</a>".
                 "<span class='sep'><i class='fa fa-caret-right'></i></span>".
                 "<a href='{$this->parentProduct['alias']}.html'>".ucwords($this->parentProduct['name'])."</a>".
