@@ -18,8 +18,8 @@ class MMYP extends Controller {
         $this->view->make = $makeData['make'];
         $this->view->model = $modelData['model'];
         
-        $this->ProductYearRelation = $this->model->chekPY($modelData['modelid'],$year,$productTable);
-        $this->MakeModelRelation = $this->model->checkMM($makeData['makeid'],$modelData['modelid']);        
+        $this->ProductYearRelation = $this->model->checkPY($modelData['modelid'],$year,$productTable);
+        $this->MakeModelRelation = $this->model->checkMM($makeData['makeid'],$modelData['modelid']);  
         
         if($this->MakeModelRelation && $this->ProductYearRelation){
             $this->view->title = preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['title']);

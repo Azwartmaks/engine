@@ -6,16 +6,24 @@
  * and open the template in the editor.
  */
 
-class View{
+class View extends Smarty{
     var $uri;
-    
+    function varToTemp($varname,$value){  
+
+        $this->assign($varname,$value);
+    }
     function render($name){
         $this->uri = str_replace('.html','',$_SERVER['REQUEST_URI']);
         $file = "views/{$name}.php";
+                $this->setTemplateDir('views/');
+        $this->setCompileDir('/views_c/');
         if(file_exists($file)){
-            require 'views/header.php';
-            require $file;
-            require 'views/footer.php';
+            $this->display('header.php');
+//            require 'views/header.php';
+            $this->display($file);
+//            require $file;
+            $this->display('footer.php');
+//            require 'views/footer.php';
         }
     }
 }

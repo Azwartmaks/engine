@@ -15,10 +15,6 @@ body{
 h1,h2,h3,h4,h5,h6{
     color:#333;
 }
-/*a:focus, a:active{
-    color: #f35656;
-    text-decoration: none;
-}*/
 p{
     text-align: justify;
 }
@@ -81,8 +77,8 @@ footer{
     display: inline-block;
 }
 .logo {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 header a{    
     text-decoration: underline;
@@ -104,12 +100,13 @@ header a:hover{
 .top-nav a{
     text-transform: uppercase;
     display: block;
-    padding: 36px 22px;
+    padding: 15px 22px;
     text-decoration: none;
-    color:#777;
+    color: #777;
     font-size: 12px;
     transition: all ease 0.3s;
-    margin-left:1px;
+    margin-left: 1px;
+    margin-top: 25px;
 }
 .top-nav a:hover, .top-nav a.active{
     color: #fff;
@@ -135,7 +132,7 @@ header a:hover{
 .form-search{    
     color:#777;
     margin-top: 30px;
-    padding: 2px;
+    padding: 5px;
     border:1px solid #f0f0f0;
 }
 .form-search input{
@@ -156,6 +153,10 @@ header a:hover{
 }
 
 /*Sidebar**********************************************************************/
+.sidebar{
+    background: #f5f5f5;
+    margin-top: 15px;
+}
 .side-h2{
     position: relative;
     color: #333;
@@ -188,7 +189,18 @@ header a:hover{
     padding-left: 0px;
 }
 .side-list li{
-    padding: 5px 5px;
+    position: relative;
+    padding: 5px 5px 5px 20px;
+}
+.side-list li:before{
+    content: ' ';
+    display: block;
+    position: absolute;
+    background: #37A68E;
+    left: 10px;
+    top: 15px;
+    width: 3px;
+    height: 3px;
 }
 .side-list li:last-child{
     border-bottom: none;
@@ -198,8 +210,7 @@ header a:hover{
     font-size: 14px;
 }
 .side-list a:hover{
-    text-decoration: none;
-    color:#f97212;
+    text-decoration: underline;
 }
 /*Content**********************************************************************/
 .breadcrumbs{
@@ -263,8 +274,9 @@ header a:hover{
     background: #242424;
     font-size: 12px;
 }
-.foot-h2{
-    
+.footer-copy a{
+    color: #fff;
+    margin-left: 5px;
 }
 .foot-h2{
     position: relative;
@@ -287,4 +299,39 @@ header a:hover{
     border-bottom: 1px solid #a9a9a9;
     width: 50px;
     height: 1px;
+}
+.foot-list,.foot-locate{
+    list-style: none;
+    padding-left: 0px;
+}
+.foot-list a{
+    color:#DADADA;
+    font-size: 15px;
+    line-height: 25px;
+}
+.foot-locate li{
+    position: relative;
+    color:#DADADA;
+    margin: 5px 0px;
+    padding-left: 25px;
+}
+.foot-locate a{
+    color:#dadada;
+}
+.foot-locate li:before{
+    font: normal normal normal 14px/1 FontAwesome;
+    color: #37A68E;
+    position: absolute;
+    left: 0px;
+    font-size: 16px;
+    top:3px;
+}
+.foot-locate .map:before{
+    content:"\f041";    
+}
+.foot-locate .phone:before{    
+    content: "\f095";
+}
+.foot-locate .email:before{
+    content: "\f0e0";
 }

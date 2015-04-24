@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?=$this->title;?></title>
+        <title>{$title}</title>
         <meta name="description" content="<?=$this->description?>"/>
         <meta name="keywords" content="<?=$this->keywords?>"/>
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic' rel='stylesheet' type='text/css'>

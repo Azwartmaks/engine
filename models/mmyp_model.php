@@ -5,7 +5,7 @@ class MMYP_MODEL extends Model{
 
     function checkPY($modelid,$year,$relationTable){
         $result = mysql_query("SELECT * FROM `{$relationTable}` WHERE `modelid` = {$modelid} AND `year`={$year}");
-        $result = $this->assocAllResult($years);
+        $result = $this->assocRowResult($result);
         return $result;
     }
     function getYears($modelid,$relationTable){

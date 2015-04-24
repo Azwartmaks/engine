@@ -18,7 +18,7 @@
                                 <div class="foot-h2">
                                     Main pages
                                 </div>
-                                <ul>
+                                <ul class="foot-list">
                                     <li><a href="/">Home</a></li>
                                     <li><a href="/">About Us</a></li>
                                     <li><a href="/">Contact Us</a></li>
@@ -29,7 +29,7 @@
                                 <div class="foot-h2">
                                     Help
                                 </div>
-                                <ul>
+                                <ul class="foot-list">
                                     <li><a href="http://en.wikipedia.org/wiki/Transmission" rel="nofollow" target="_blank">Transmission Guide</a></li>
                                     <li><a href="http://twitter.com/CARiD_com">CARiD @ Twitter</a></li>
                                     <li><a href="http://www.scienceaccelerator.gov/" rel="nofollow" target="_blank">ScienceAccelerator.gov</a></li>
@@ -40,12 +40,13 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="foot-h2">
-                                    Our Contacts
+                                    About us
                                 </div>
-                                <ul>
-                                    <li><i class="fa fa-map-marker"></i> NY</li>
-                                    <li><i class="fa fa-phone"></i> NY</li>
-                                    <li><i class="fa fa-envelope"></i> NY</li>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod elit ac quam malesuada, ut commodo augue aliquam. Proin cursus ...</p>
+                                <ul class="foot-locate">
+                                    <li class="map">940 Fairport Rd, East Rochester, NY 14445, United States</li>
+                                    <li class="phone">907-671-9343</li>
+                                    <li class="email"><a href="mailto:support@scienceg8.com">support@scienceg8.com</a></li>
                                 </ul>
                             </div>
                         </div>

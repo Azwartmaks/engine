@@ -26,7 +26,6 @@ class MMP extends Controller{
             $this->view->text = preg_replace(array('/\[make\]/','/\[model\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model']),  $this->MMPData['text']); 
             $this->view->render('mmp');  
         }else{
-            echo 12;
             $this->view->title = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
             $this->view->description = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
             $this->view->keywords = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";

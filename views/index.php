@@ -17,6 +17,7 @@
             However, there are various other parts, which need to be upgraded too. 
             These various other parts can be classified into four classes.
         </p>
+        <img src="views/images/performance_accessories_prev.jpg" class="img-r"/>
         <p>Firstly, the brakes can be categorized as the most important part of a car as 
             they serve as a safety factor that controls the speed of the vehicle. 
             Upgrading the brakes has its own importance as it can affect the acceleration 
@@ -45,16 +46,46 @@
             Furthermore, the muffler can also be upgraded, as it will result in an 
             increase in fuel efficiency. Combining all those parts will help greatly 
             in making the car perform at its best.
-        </p>    
+        </p>   
+        <hr/>
+        <p><img src="views/images/c-air-intakes.jpg" class="responsive"/></p>
+        <p>Aftermarket air intake systems are one of the most popular engine modifications available for late model cars and trucks. 
+            But why are they so popular? Didn't the manufacturer equip your car with the best parts available? 
+            Well, it depends on your point of view, whether you're a car buff or only care about the cup holders. 
+            Because you're reading this we assume you're in the former category, so read on for answers. 
+            We'll explain what these systems do for your ride and why you need one.</p>
+        
+        <p>Modern vehicles are electronic marvels, with variable valve timing and other complexities that make traditional 
+            hotrodding mods like cam replacement impossible or beyond the scope of the average enthusiast. 
+            Their high level of tune from the factory also makes them hard to improve upon. 
+            This makes the aftermarket air intake system the best investment for your performance dollar. 
+            The manufacturers we represent have verifiable performance claims backed up by dyno testing. 
+            One of these systems will increase your engine's horsepower and torque, with improved performance you can feel in the seat of your pants. 
+            And, if you can restrain yourself, you might even see a few more miles per gallon! 
+            An aftermarket air intake system is simply, the biggest bang for your buck.</p>
+        <hr/>
+        <p>Fourthly, the wheels and tires. It is very important to choose the right tires according to your environment or 
+            location because your normal tires might just end up being useless when the road is slippery or in a snowy weather 
+            or might just not work in rough roads. There are tires specially built for every type of environment. However, it might 
+            not be the best idea to switch tires every time, so finding a tire, which suits every environment, becomes important. 
+            So, this is where upgrading your normal tire needs to be done.</p>
+
+        <p>All these upgrading features will lead to a few favorable things like your car’s speed limit gets high, 
+            more firm and controllable drifts, your car will be able to take faster turns etc. However, choosing the right 
+            performance parts for your car is best thing that you will have to do for yourself as it greatly depends on what 
+            you decide to use in your car and it also depends how good your car is going to act.</p>
 
     </div>
     <div class="sidebar col-sm-3">
-        <?php //var_dump($this->products);?>
         <div class="side-block first">
             <div class="side-h2">
                 Car components
             </div>
             <ul class="side-list">
+                
+{foreach $products as $product}
+    <li>{$product.name}</li>
+{/foreach}
                 <?php foreach ($this->products as $value):?>
                 <li><a href="<?php if($value['alias']=='performance-accessories'){
                         echo "";                    

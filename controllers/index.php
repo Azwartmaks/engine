@@ -12,7 +12,8 @@ class Index extends Controller{
     }
     
     function index(){
-        $this->view->products = $this->model->getAllParentProducts();
+        $this->view->varToTemp('title','Car body kits and performance - Engine');
+        $this->view->varTotemp('products',$this->model->getAllParentProducts());
         $this->view->render('index');
     }
 }

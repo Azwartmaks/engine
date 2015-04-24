@@ -13,7 +13,7 @@
         </ul>
         
     </div>
-    <div class="sidebar col-sm-4">
+    <div class="sidebar col-sm-3">
         <?php //var_dump($this->products);?>
         <div class="side-block first">
             <div class="side-h2">

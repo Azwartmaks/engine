@@ -1,8 +1,5 @@
-<div class="wrapper mt30">
-    <div class="content col-sm-8">
-        <div class="main-banner">
-            <img src="views/images/bg_header.jpg" class="responsive">
-        </div>
+<div class="wrapper">
+    <div class="content col-sm-9">
         <div class="breadcrumbs">
             <?=$this->breadcrumbs;?>
         </div>
@@ -18,7 +15,7 @@
         <?=$this->text;?>
 
     </div>
-    <div class="sidebar col-sm-4">
+    <div class="sidebar col-sm-3">
         <?php //var_dump($this->products);?>
         <div class="side-block first">
             <div class="side-h2">
