@@ -87,8 +87,8 @@
                     <a  {if $product.alias=='performance-accessories'}
                             href='/'
                         {else}
-                            href='{$product.alias}'            
-                        {/if}>{$product.name}</a>
+                            href='{$product.alias}.html'            
+                        {/if}>{$product.name|capitalize}</a>
                 </li>   
                 {/foreach}
             </ul>

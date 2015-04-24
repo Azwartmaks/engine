@@ -4,32 +4,32 @@
             <?=$this->breadcrumbs;?>
         </div>
         <hr/>
-        <h1><?=ucwords($this->header);?></h1>
-        <?php if(!empty($this->subProducts)):?>
+        <h1>{$header}</h1>
+        {if $products ne "" }
             <ul class="subptype-list">
-                <?php foreach ($this->subProducts as $value): ?>
-                <li><a href="<?=$value['alias']?>.html"><?=$value['header'];?></a></li>
-                <?php endforeach;?>
+                {foreach $subProducts as $subProduct}
+                <li><a href="{$subProduct.alias}.html">{$subProduct.header}</a></li>
+                {/foreach}
             </ul>
-        <?php endif;?>
-        <?=$this->text;?>
+        {/if}
+        {$text}
 
     </div>
     <div class="sidebar col-sm-3">
-        <?php //var_dump($this->products);?>
         <div class="side-block first">
             <div class="side-h2">
                 Car components
             </div>
-            <ul class="side-list">
-                <?php foreach ($this->products as $value):?>
-                <li><a href="<?php if($value['alias']=='performance-accessories'){
-                        echo "/";                    
-                    }else{
-                        echo $value['alias'].".html";
-                    }
-                    ?>"><?=ucwords($value['name']);?></a></li>
-                <?php endforeach;?>
+            <ul class="side-list">                
+                {foreach $products as $product}
+                <li>
+                    <a  {if $product.alias=='performance-accessories'}
+                            href='/'
+                        {else}
+                            href='{$product.alias}.html'            
+                        {/if}>{$product.name|capitalize}</a>
+                </li>   
+                {/foreach}
             </ul>
         </div>
         <div class="side-block first">
@@ -46,4 +46,4 @@
     </div>
     <div class="clearfix"></div>
 </div>   
-<?php require 'views/blocks/footer-product.php';?>
+{include file="views/blocks/footer-product.php"}

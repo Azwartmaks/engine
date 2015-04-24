@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>{$title}</title>
-        <meta name="description" content="<?=$this->description?>"/>
-        <meta name="keywords" content="<?=$this->keywords?>"/>
+        <meta name="description" content="{$meta_description}"/>
+        <meta name="keywords" content="{$meta_keywords}"/>
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="views/css/font-awesome.css" />
         <link rel="stylesheet" type="text/css" href="views/css/bootstrap.css" />
