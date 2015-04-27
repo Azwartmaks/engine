@@ -3,6 +3,7 @@
         <div class="main-banner">
             <img src="views/images/bg_header.jpg" class="responsive">
         </div>
+        {include file="blocks/breadcrumbs_mmp.tpl"}
         <hr/>
         <h1>{$header}</h1>
         {$text}

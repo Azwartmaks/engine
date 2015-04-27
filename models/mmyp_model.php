@@ -2,7 +2,17 @@
 
 class MMYP_MODEL extends Model{
     /*is make from URL available*/
-
+    
+    function getModels($makeid,$relationTable){
+           
+        $models = mysql_query("SELECT DISTINCT ML.`modelid` , ML.`model` 
+            FROM  `{$relationTable}` WK
+            LEFT JOIN  `model` ML ON ML.`modelid` = WK.`modelid` 
+            WHERE ML.`makeid` = {$makeid}");
+        $models = $this->assocAllResult($models);
+        return $models;
+    }
+    
     function checkPY($modelid,$year,$relationTable){
         $result = mysql_query("SELECT * FROM `{$relationTable}` WHERE `modelid` = {$modelid} AND `year`={$year}");
         $result = $this->assocRowResult($result);

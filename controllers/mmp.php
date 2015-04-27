@@ -26,11 +26,11 @@ class MMP extends Controller{
             $this->view->varToTemp('text', preg_replace(array('/\[make\]/','/\[model\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model']),  $this->MMPData['text'])); 
             $this->view->render('mmp');  
         }else{
-            $this->view->title = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
-            $this->view->description = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
-            $this->view->keywords = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
-            $this->view->header = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
-            $this->view->text = "Wa are haven't information for your {$makeData['make']} {$modelData['model']}";
+            $this->view->varToTemp('title', "Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
+            $this->view->varToTemp('description', "Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
+            $this->view->varToTemp('keywords', "Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
+            $this->view->varTotemp('header', "Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
+            $this->view->varToTemp('text',"Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
             $this->view->render('mmp_error');  
         }
         

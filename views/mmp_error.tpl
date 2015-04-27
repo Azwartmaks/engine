@@ -4,31 +4,31 @@
             <img src="views/images/bg_header.jpg" class="responsive">
         </div>
         <hr/>
-        <h1><?=$this->header?></h1>
-        <?=$this->text;?>
+        <h1>{$header}</h1>
+        {$text}
         
-        <h3>Choose one of <?=$this->make?> models</h3>
+        <h3>Choose one of {$make} model</h3>
         <ul>
-            <?php foreach ($this->models as $model):?>
-            <li><a href="<?=$this->make.'-'.$model['model'].'-'.$this->productUrl.'.html'?>"><?=$model['model'].' '.$this->product?></a></li>
-            <?php endforeach;?>
+            {foreach $models as $model}
+            <li><a href="{$make}-{$model.model}-{$productUrl}.html">{$model.model} {$productname}</a></li>
+            {/foreach}
         </ul>
     </div>
     <div class="sidebar col-sm-4">
-        <?php //var_dump($this->products);?>
         <div class="side-block first">
             <div class="side-h2">
                 Car components
             </div>
-            <ul class="side-list">
-                <?php foreach ($this->products as $value):?>
-                <li><a href="<?php if($value['alias']=='performance-accessories'){
-                        echo "";                    
-                    }else{
-                        echo $value['alias'].".html";
-                    }
-                    ?>"><?=ucwords($value['name']);?></a></li>
-                <?php endforeach;?>
+            <ul class="side-list">                
+                {foreach $products as $product}
+                <li>
+                    <a  {if $product.alias=='performance-accessories'}
+                            href='/'
+                        {else}
+                            href='{$product.alias}.html'            
+                        {/if}>{$product.name|capitalize}</a>
+                </li>   
+                {/foreach}
             </ul>
         </div>
         <div class="side-block first">

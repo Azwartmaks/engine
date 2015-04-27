@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 11:42:38
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 15:16:37
          compiled from "views\mp.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:32318553df4ee380d90-85016607%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '43ad82b710559c08ca77d34f8fafcb2fe81d5ebf' => 
     array (
       0 => 'views\\mp.tpl',
-      1 => 1430124154,
+      1 => 1430136993,
       2 => 'file',
     ),
   ),
@@ -36,6 +36,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <div class="main-banner">
             <img src="views/images/bg_header.jpg" class="responsive">
         </div>
+        <?php echo $_smarty_tpl->getSubTemplate ("blocks/breadcrumbs_mp.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
         <hr/>
         <h1><?php echo $_smarty_tpl->tpl_vars['header']->value;?>
 </h1>

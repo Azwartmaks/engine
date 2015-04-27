@@ -1,71 +1,50 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 15:20:25
-         compiled from "views\mmp.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:25832553dfbb360cfd8-75363387%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 14:50:09
+         compiled from "views\mmp_error.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:1994553e21938830b2-65359954%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '988ac85e5e91c0f1a1facbfa1ead7c1c71036ed2' => 
+    '44a83c182e1a22bda488558fcad9c75f82d6fe29' => 
     array (
-      0 => 'views\\mmp.tpl',
-      1 => 1430137219,
+      0 => 'views\\mmp_error.tpl',
+      1 => 1430135404,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '25832553dfbb360cfd8-75363387',
+  'nocache_hash' => '1994553e21938830b2-65359954',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.21-dev',
-  'unifunc' => 'content_553dfbb36a9a17_24844233',
+  'unifunc' => 'content_553e21938ec055_01851354',
   'variables' => 
   array (
     'header' => 0,
     'text' => 0,
-    'years' => 0,
-    'year' => 0,
     'make' => 0,
+    'models' => 0,
     'model' => 0,
     'productUrl' => 0,
-    'product' => 0,
-    'models' => 0,
     'productname' => 0,
     'products' => 0,
+    'product' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_553dfbb36a9a17_24844233')) {function content_553dfbb36a9a17_24844233($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_capitalize')) include 'Z:\\home\\engine\\www\\lib\\plugins\\modifier.capitalize.php';
+<?php if ($_valid && !is_callable('content_553e21938ec055_01851354')) {function content_553e21938ec055_01851354($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_capitalize')) include 'Z:\\home\\engine\\www\\lib\\plugins\\modifier.capitalize.php';
 ?><div class="wrapper mt30">
-    <div class="content col-sm-9">
+    <div class="content col-sm-8">
         <div class="main-banner">
             <img src="views/images/bg_header.jpg" class="responsive">
         </div>
-        <?php echo $_smarty_tpl->getSubTemplate ("blocks/breadcrumbs_mmp.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
-
         <hr/>
         <h1><?php echo $_smarty_tpl->tpl_vars['header']->value;?>
 </h1>
         <?php echo $_smarty_tpl->tpl_vars['text']->value;?>
 
-        <ul>
-            <?php  $_smarty_tpl->tpl_vars['year'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['year']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['years']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars['year']->key => $_smarty_tpl->tpl_vars['year']->value) {
-$_smarty_tpl->tpl_vars['year']->_loop = true;
-?>
-                <li><a href="<?php echo $_smarty_tpl->tpl_vars['year']->value['year'];?>
--<?php echo $_smarty_tpl->tpl_vars['make']->value;?>
--<?php echo $_smarty_tpl->tpl_vars['model']->value;?>
--<?php echo $_smarty_tpl->tpl_vars['productUrl']->value;?>
-.html"><?php echo $_smarty_tpl->tpl_vars['year']->value['year'];?>
- <?php echo $_smarty_tpl->tpl_vars['make']->value;?>
- <?php echo $_smarty_tpl->tpl_vars['model']->value;?>
- <?php echo $_smarty_tpl->tpl_vars['product']->value;?>
-</a></li>
-            <?php } ?>
-        </ul>
         
-        <h3>Other <?php echo $_smarty_tpl->tpl_vars['make']->value;?>
- models</h3>
+        <h3>Choose one of <?php echo $_smarty_tpl->tpl_vars['make']->value;?>
+ model</h3>
         <ul>
             <?php  $_smarty_tpl->tpl_vars['model'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['model']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['models']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -81,7 +60,7 @@ $_smarty_tpl->tpl_vars['model']->_loop = true;
             <?php } ?>
         </ul>
     </div>
-    <div class="sidebar col-sm-3">
+    <div class="sidebar col-sm-4">
         <div class="side-block first">
             <div class="side-h2">
                 Car components
@@ -117,6 +96,4 @@ $_smarty_tpl->tpl_vars['product']->_loop = true;
         </div>    
     </div>
     <div class="clearfix"></div>
-</div>    
-<?php echo $_smarty_tpl->getSubTemplate ("blocks/footer-product.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
-<?php }} ?>
+</div>    <?php }} ?>

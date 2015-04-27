@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 14:06:12
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 15:25:08
          compiled from "views\mmyp.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:31494553e10d0c671c5-25315404%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'cc61565fdd104cf7ae3029103233b4fbcf559f47' => 
     array (
       0 => 'views\\mmyp.tpl',
-      1 => 1430132729,
+      1 => 1430137213,
       2 => 'file',
     ),
   ),
@@ -40,6 +40,8 @@ if (!is_callable('smarty_modifier_capitalize')) include 'Z:\\home\\engine\\www\\
         <div class="main-banner">
             <img src="views/images/bg_header.jpg" class="responsive">
         </div>
+        <?php echo $_smarty_tpl->getSubTemplate ("blocks/breadcrumbs_mmyp.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
         <hr/>
         <h1><?php echo $_smarty_tpl->tpl_vars['header']->value;?>
 </h1>
