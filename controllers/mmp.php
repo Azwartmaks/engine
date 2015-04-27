@@ -31,8 +31,7 @@ class MMP extends Controller{
             $this->view->varTotemp('header', "Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
             $this->view->varToTemp('text',"Wa are haven't information for your {$makeData['make']} {$modelData['model']}");
             $this->view->render('mmp_error');  
-        }
-        
+        }        
     }
 }
 

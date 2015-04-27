@@ -111,7 +111,7 @@ class Router{
             }
             
         }else{
-            $file = 'views/'.$url.'.php';   //custom file            
+            $file = 'views/'.$url.'.tpl';   //custom file            
             if($url=="" || $url="index"){
                 
                 require 'controllers/index.php';
