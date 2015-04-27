@@ -17,7 +17,6 @@ class MMP extends Controller{
         $this->view->varToTemp('make', $makeData['make']);
         $this->view->varToTemp('model', $modelData['model']);
         $this->MakeModelRelation = $this->model->checkMM($makeData['makeid'],$modelData['modelid']);
-
         if($this->MakeModelRelation){
             $this->view->varToTemp('title',preg_replace(array('/\[make\]/','/\[model\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model']),  $this->MMPData['title']));
             $this->view->varToTemp('description', preg_replace(array('/\[make\]/','/\[model\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model']),  $this->MMPData['meta_description']));

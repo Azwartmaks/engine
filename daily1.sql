@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2015 at 05:53 PM
+-- Generation Time: Apr 27, 2015 at 04:39 PM
 -- Server version: 5.5.25
 -- PHP Version: 5.3.13
 
@@ -14541,7 +14541,7 @@ CREATE TABLE IF NOT EXISTS `ptype_mm` (
 
 INSERT INTO `ptype_mm` (`id`, `ptype_id`, `ptype_name`, `title`, `meta_description`, `meta_keywords`, `header`, `text`, `pic`) VALUES
 (1, 1, 'performance accessories', '', '', '', '', '', ''),
-(2, 2, 'body kits', '', '', '', '', '', ''),
+(2, 2, 'body kits', '[make] [model]', '', '', '', '', ''),
 (3, 3, 'air intakes', '', '', '', '', '', ''),
 (4, 4, 'car spoilers', '', '', '', '', '', ''),
 (5, 5, 'exhaust systems', '', '', '', '', '', ''),
@@ -14577,7 +14577,7 @@ CREATE TABLE IF NOT EXISTS `ptype_mmy` (
 
 INSERT INTO `ptype_mmy` (`id`, `ptype_id`, `ptype_name`, `title`, `meta_description`, `meta_keywords`, `header`, `text`, `pic`) VALUES
 (1, 1, 'performance accessories', '', '', '', '', '', ''),
-(2, 2, 'body kits', '', '', '', '', '', ''),
+(2, 2, 'body kits', '[make] [model] [year] Body Kits | site.com', '', '', '[make] [model] [year] Body Kits', 'Make model Year Text from admin bar', ''),
 (3, 3, 'air intakes', '', '', '', '', '', ''),
 (4, 4, 'car spoilers', '', '', '', '', '', ''),
 (5, 5, 'exhaust systems', '', '', '', '', '', ''),
