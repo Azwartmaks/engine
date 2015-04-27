@@ -1,16 +1,19 @@
-<div class="wrapper">
+<div class="wrapper mt30">
     <div class="content col-sm-9">
-            {include file="views/blocks/breadcrumbs_product.tpl"}        
+        <div class="main-banner">
+            <img src="views/images/bg_header.jpg" class="responsive">
+        </div>
         <hr/>
-        <h1>{$header|capitalize}</h1>
-        {if $products ne "" }
-            <ul class="subptype-list">
-                {foreach $subProducts as $subProduct}
-                <li><a href="{$subProduct.alias}.html">{$subProduct.header}</a></li>
-                {/foreach}
-            </ul>
-        {/if}
+        <h1>{$header}</h1>
         {$text}
+        <h3>Other Years for {$make} {$model}</h3>
+        <ul>
+            {foreach $years as $year}
+                {if $year.year != $cur_year}
+                    <li><a href="{$year.year}-{$make}-{$model}-{$productUrl}.html">{$year.year} {$make|replace:'-':' '|capitalize} {$model} {$productname}</a></li>
+                {/if}
+            {/foreach}
+        </ul>
 
     </div>
     <div class="sidebar col-sm-3">
@@ -43,5 +46,5 @@
         </div>    
     </div>
     <div class="clearfix"></div>
-</div>   
+</div>
 {include file="blocks/footer-product.tpl"}

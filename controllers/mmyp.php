@@ -10,23 +10,24 @@ class MMYP extends Controller {
         
         $productTable = $productdata['rel_table'];
         $this->MMYPData = $this->model->MMYPData($productdata['id']);
-        $this->view->products = $this->model->getAllParentProducts();
-        
-        $this->view->years = $this->model->getYears($modelData['modelid'],$productTable);
-        $this->view->product = $productdata['name'];
-        $this->view->productUrl = $productdata['alias'];
-        $this->view->make = $makeData['make'];
-        $this->view->model = $modelData['model'];
+        $this->view->varToTemp('products', $this->model->getAllParentProducts());
+        $this->view->varToTemp('makes', $this->model->allMakes());
+        $this->view->varToTemp('years', $this->model->getYears($modelData['modelid'],$productTable));
+        $this->view->varToTemp('productname', $productdata['name']);
+        $this->view->varToTemp('productUrl', $productdata['alias']);
+        $this->view->varToTemp('make', $makeData['make']);
+        $this->view->varToTemp('model',$modelData['model']);
+        $this->view->varToTemp('cur_year',$year);
         
         $this->ProductYearRelation = $this->model->checkPY($modelData['modelid'],$year,$productTable);
         $this->MakeModelRelation = $this->model->checkMM($makeData['makeid'],$modelData['modelid']);  
         
         if($this->MakeModelRelation && $this->ProductYearRelation){
-            $this->view->title = preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['title']);
-            $this->view->description = preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['meta_description']);
-            $this->view->keywords = preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['meta_keywords']);
-            $this->view->header = preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['header']);
-            $this->view->text = preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['text']);
+            $this->view->varToTemp('title', preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['title']));
+            $this->view->varToTemp('description', preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['meta_description']));
+            $this->view->varToTemp('keywords', preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['meta_keywords']));
+            $this->view->varToTemp('header', preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['header']));
+            $this->view->varToTemp('text', preg_replace(array('/\[make\]/','/\[model\]/','/\[year\]/'),array(ucwords(str_replace('-',' ',$makeData['make'])),$modelData['model'],$year),  $this->MMYPData['text']));
             $this->view->render("mmyp");
         }else{
             $this->view->ProductYearRelation = $this->ProductYearRelation;

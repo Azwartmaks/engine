@@ -1,34 +1,33 @@
 <div class="wrapper mt30">
-    <div class="content col-sm-8">
+    <div class="content col-sm-9">
         <div class="main-banner">
             <img src="views/images/bg_header.jpg" class="responsive">
         </div>
         <hr/>
-        <h1><?=$this->header?></h1>
-        <?=$this->text;?>
-        <h3>Other Years for <?=$this->make.' '.$this->model?></h3>
+        <h1>{$header}</h1>
+        {$text}
         <ul>
-            <?php foreach ($this->years as $year): ?>
-            <li><a href="<?=$year['year'].'-'.$this->make.'-'.$this->model.'-'.$this->productUrl.'.html'?>"><?=$year['year'].' '.$this->model.' '.$this->product?></a></li>
-            <?php endforeach;?>
+            {foreach $models as $model}
+            <li><a href="{$make}-{$model.model}-{$productUrl}.html">{$model.model} {$product}</a></li>
+            {/foreach}
         </ul>
-
+        
     </div>
-    <div class="sidebar col-sm-4">
-        <?php //var_dump($this->products);?>
+    <div class="sidebar col-sm-3">
         <div class="side-block first">
             <div class="side-h2">
                 Car components
             </div>
-            <ul class="side-list">
-                <?php foreach ($this->products as $value):?>
-                <li><a href="<?php if($value['alias']=='performance-accessories'){
-                        echo "";                    
-                    }else{
-                        echo $value['alias'].".html";
-                    }
-                    ?>"><?=ucwords($value['name']);?></a></li>
-                <?php endforeach;?>
+            <ul class="side-list">                
+                {foreach $products as $product}
+                <li>
+                    <a  {if $product.alias=='performance-accessories'}
+                            href='/'
+                        {else}
+                            href='{$product.alias}.html'            
+                        {/if}>{$product.name|capitalize}</a>
+                </li>   
+                {/foreach}
             </ul>
         </div>
         <div class="side-block first">
@@ -44,4 +43,5 @@
         </div>    
     </div>
     <div class="clearfix"></div>
-</div>    
+</div> 
+{include file="blocks/footer-product.tpl"}

@@ -16,7 +16,7 @@ class View extends Smarty{
         $this->uri = str_replace('.html','',$_SERVER['REQUEST_URI']);
         $file = "views/{$name}.tpl";
                 $this->setTemplateDir('views/');
-        $this->setCompileDir('/views_c/');
+        $this->setCompileDir('views_c/');
         if(file_exists($file)){
             $this->display('header.tpl');
             $this->display($file);

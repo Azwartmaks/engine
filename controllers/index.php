@@ -12,6 +12,7 @@ class Index extends Controller{
     }
     
     function index(){
+        $this->view->varToTemp('url',$_GET['url']);
         $this->view->varToTemp('title','Car body kits and performance - Engine');
         $this->view->varToTemp('meta_description','Car body kits and performance - Engine');
         $this->view->varToTemp('meta_keywords','Car body kits and performance - Engine');
