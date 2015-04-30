@@ -6,6 +6,7 @@ class MP extends Controller{
     }
     
     public function index($makeData,$productdata){
+        $makeData=$makeData[0];
         $productTable = $productdata['rel_table'];
         $this->view->varToTemp("models", $this->model->getModels($makeData['makeid'],$productTable));
         $this->MPData = $this->model->MPData($productdata['id']);
@@ -15,11 +16,11 @@ class MP extends Controller{
         $this->view->varToTemp('productname',$productdata['name']);
         $this->view->varToTemp('make',$makeData['make']);
         
-        $this->view->varToTemp("title",preg_replace('/\[make\]/',str_replace('-',' ',$makeData['make']),  $this->MPData['title']));
-        $this->view->varToTemp('description', preg_replace('/\[make\]/',$makeData['make'],  $this->MPData['meta_description']));
-        $this->view->varToTemp('keywords', preg_replace('/\[make\]/',$makeData['make'],  $this->MPData['meta_keywords']));
-        $this->view->varToTemp('header', preg_replace('/\[make\]/',str_replace('-',' ',$makeData['make']),  $this->MPData['header']));
-        $this->view->varToTemp('text', preg_replace('/\[make\]/',str_replace('-',' ',$makeData['make']),  $this->MPData['text']));
+        $this->view->varToTemp("title",preg_replace('/\[make\]/',str_replace('-',' ',$makeData['make']),  $this->MPData[0]['title']));
+        $this->view->varToTemp('description', preg_replace('/\[make\]/',$makeData['make'],  $this->MPData[0]['meta_description']));
+        $this->view->varToTemp('keywords', preg_replace('/\[make\]/',$makeData['make'],  $this->MPData[0]['meta_keywords']));
+        $this->view->varToTemp('header', preg_replace('/\[make\]/',str_replace('-',' ',$makeData['make']),  $this->MPData[0]['header']));
+        $this->view->varToTemp('text', preg_replace('/\[make\]/',str_replace('-',' ',$makeData['make']),  $this->MPData[0]['text']));
         
         $this->view->render('mp');
     }

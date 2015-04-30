@@ -6,7 +6,7 @@
                 <th>Table Name</th>
             </tr>
         </thead>
-        <?php foreach ($this->tables as $value):?>
+        <?php foreach ($this->tables[0] as $value):?>
         <tr>
             <td><?=$value[0];?></td>
         </tr>

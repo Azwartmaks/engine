@@ -66,7 +66,6 @@ class Router{
             } 
             
         }elseif(!empty($mmp)){ //show when was choice any make and model
-            
             $ismake = $dbsth->getMake($mmp[1], $mmp[2]); 
             $make = $ismake['make']['make'];
             $ismodel = $dbsth->getModel($mmp[2],$ismake['part'],$make);

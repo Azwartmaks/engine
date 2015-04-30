@@ -4,6 +4,7 @@ class Admin extends Controller{
     function __construct() {
         parent::__construct();
     }
+    
     function is_login(){
         if($_SESSION['login']==null){
             header("Location:admin-login.html");
@@ -14,6 +15,7 @@ class Admin extends Controller{
     }
     function index(){
         $this->adminview->tables = $this->model->allTables();
+//        var_dump($this->model->allTables());
         $this->adminview->render('index');
     }
     function autorize(){
@@ -111,8 +113,9 @@ class Admin extends Controller{
     function editProductMMY($param){
         $this->adminview->formAction = 'updateproductmmy';
         $this->adminview->tablename = "MMY";
-        $this->adminview->products = $this->model->getProducts();
-        $this->adminview->productData = $this->model->getProductMMYData('ptype_mmy',$param);
+        $this->adminview->products = $this->model->getProducts();        
+        $this->productData = $this->model->getProductMMYData('ptype_mmy',$param);
+        $this->adminview->productData = $this->productData[0];
         $this->adminview->render('editproductmmy');
     }
     
@@ -158,7 +161,8 @@ class Admin extends Controller{
     
     function editProductMM($param){
         $this->adminview->products = $this->model->getProducts();
-        $this->adminview->productData = $this->model->getProductMMYData('ptype_mm',$param);
+        $this->productData = $this->model->getProductMMYData('ptype_mm',$param);
+        $this->adminview->productData = $this->productData[0];
         $this->adminview->formAction = 'updateproductmm';
         $this->adminview->tablename = "MM";
         $this->adminview->render('editproductmmy');
@@ -207,7 +211,8 @@ class Admin extends Controller{
         $this->adminview->products = $this->model->getProducts();
         $this->adminview->formAction = 'updateproductm';
         $this->adminview->tablename = "M";
-        $this->adminview->productData = $this->model->getProductMMYData('ptype_m',$param);
+        $this->productData = $this->model->getProductMMYData('ptype_m',$param);
+        $this->adminview->productData = $this->productData[0];
         $this->adminview->render('editproductmmy');
     }
     

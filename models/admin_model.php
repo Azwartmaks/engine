@@ -14,27 +14,27 @@ class Admin_Model extends Model{
     }
     
     function getMM(){
-        $result = mysql_query("SELECT * FROM `ptype_mm`");
-        $result = $this->db->assocAllResult($result);
-        return $result;
+        $result = $this->prepare("SELECT * FROM `ptype_mm`");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getM(){
-        $result = mysql_query("SELECT * FROM `ptype_m`");
-        $result = $this->db->assocAllResult($result);
-        return $result;
+        $result = $this->prepare("SELECT * FROM `ptype_m`");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getProducts(){
-        $result = mysql_query("SELECT * FROM `ptype`");
-        $result = $this->db->assocAllResult($result);
-        return $result; 
+        $result = $this->prepare("SELECT * FROM `ptype`");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getProductData($param){
-        $result = mysql_query("SELECT * FROM `ptype` WHERE `id`='{$param}'");
-        $result = $this->assocRowResult($result);
-        return $result; 
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `id`= :id");
+        $result->execute(array(':id'=>$param));
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
         
     function saveProduct(){
@@ -49,21 +49,39 @@ class Admin_Model extends Model{
         $text = $_POST['text'];
         $pic = $_POST['pic'];
         
-        $sql = sprintf("INSERT INTO `ptype` "
+        $result = $this->prepare("INSERT INTO `ptype` "
                 . "(`parent_id`,`rel_table`,`name`,`alias`,`title`,`meta_description`,`meta_keywords`,`header`,`text`,`pic`) "
-                . "VALUES ($parent_id,'{$rel_table}','{$name}','{$alias}','{$title}','{$meta_description}','{$meta_keywords}','{$header}','{$text}','{$pic}')");
-        $result = mysql_query($sql) or die("Not added!".mysql_error());
+                . "VALUES (:parent_id,:rel_table,:name,:alias,:title,:meta_description,:meta_keywords,:header,:text,:pic)");  
         
-        $result = mysql_query("SELECT id, name FROM  `ptype` ORDER BY id DESC LIMIT 1")or die("Cant find last id in PTYPE table");
-        $result = $this->db->assocRowResult($result);
+        $result->execute(array(
+            ":parent_id"=>$parent_id,
+            ":rel_table"=>$rel_table,
+            ":name"=>$name,
+            ":alias"=>$alias,
+            ":title"=>$title,
+            ":meta_description"=>$meta_description,
+            ":meta_keywords"=>$meta_keywords,
+            ":header"=>$header,
+            ":text"=>$text,
+            ":pic"=>$pic
+        ));        
+        
+        $sth = $this->prepare("SELECT id, name FROM  `ptype` ORDER BY id DESC LIMIT 1");
+        $sth->execute();
+        $res = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-        $last_id = $result['id'];
-        $ptype_name = $result['name'];
-
-        mysql_query("INSERT INTO `ptype_mmy`(`ptype_id`,`ptype_name`) VALUES ($last_id,'$ptype_name')")or die("cannot add siblings 1".mysql_error());
-        mysql_query("INSERT INTO `ptype_mm`(`ptype_id`,`ptype_name`) VALUES ($last_id,'$ptype_name')")or die("cannot add siblings 2".mysql_error());
-        mysql_query("INSERT INTO `ptype_m`(`ptype_id`,`ptype_name`) VALUES ($last_id,'$ptype_name')")or die("cannot add siblings 3".mysql_error());
-        if($result){
+        $last_id = $res[0]['id'];
+        $ptype_name = $res[0]['name'];
+        
+        $sth = $this->prepare("INSERT INTO `ptype_mmy`(`ptype_id`,`ptype_name`) VALUES (:last_id,:ptype_name)");
+        $sth->execute(array(':last_id'=>$last_id,':ptype_name'=>$ptype_name));
+        
+        $sth = $this->prepare("INSERT INTO `ptype_mm`(`ptype_id`,`ptype_name`) VALUES (:last_id,:ptype_name)");
+        $sth->execute(array(':last_id'=>$last_id,':ptype_name'=>$ptype_name));
+        
+        $sth = $this->prepare("INSERT INTO `ptype_m`(`ptype_id`,`ptype_name`) VALUES (:last_id,:ptype_name)");
+        $sth->execute(array(':last_id'=>$last_id,':ptype_name'=>$ptype_name));
+        if($res){
             header("Location:admin-products.html");
         }
     }
@@ -73,10 +91,16 @@ class Admin_Model extends Model{
         if(file_exists($result['pic'])){
             unlink($result['pic']);   
         }         
-        $result = mysql_query("DELETE FROM `ptype` WHERE `id`= {$ptype_id}") or die("Cant delete");
-        $result = mysql_query("DELETE FROM `ptype_mmy` WHERE `ptype_id`= {$ptype_id}") or die("Cant delete");
-        $result = mysql_query("DELETE FROM `ptype_mm` WHERE `ptype_id`= {$ptype_id}") or die("Cant delete");
-        $result = mysql_query("DELETE FROM `ptype_m` WHERE `ptype_id`= {$ptype_id}") or die("Cant delete");
+        
+        $sth = $this->prepare("DELETE FROM `ptype` WHERE `id`= :ptype_id");
+        $sth->execute(array(':ptype_id'=>$ptype_id));
+        $sth = $this->prepare("DELETE FROM `ptype_mmy` WHERE `id`= :ptype_id");
+        $sth->execute(array(':ptype_id'=>$ptype_id));
+        $sth = $this->prepare("DELETE FROM `ptype_mm` WHERE `id`= :ptype_id");
+        $sth->execute(array(':ptype_id'=>$ptype_id));
+        $sth = $this->prepare("DELETE FROM `ptype_m` WHERE `id`= :ptype_id");
+        $sth->execute(array(':ptype_id'=>$ptype_id));
+        
         if($result){
             header("Location:admin-products.html");
         }
@@ -97,20 +121,44 @@ class Admin_Model extends Model{
         $sql="";
         
         if($pic!=""){
-        $sql = sprintf(""
-                . "UPDATE `ptype` SET "
-                . "`parent_id`='{$parent_id}',`rel_table`='{$rel_table}',`name`='{$name}',`alias`='{$alias}',`title`='{$title}',`meta_description`='{$meta_description}',"
-                . "`meta_keywords`='{$meta_keywords}',`header`='{$header}',`text`='{$text}',`pic`='{$pic}' "
-                . "WHERE `id`=$ptype_id");            
+            $result = $this->prepare("UPDATE `ptype` SET "
+                    . "`parent_id`=:parent_id,`rel_table`=:rel_table,`name`=:name,`alias`=:alias,`title`=:title,"
+                    . "`meta_description`=:meta_description,`meta_keywords=:meta_keywords,`header`=:header,`text`=:text,`pic`=:pic "
+                    . "WHERE `id`=:ptype_id");  
+            $result->execute(array(
+                ":parent_id"=>$parent_id,
+                ":rel_table"=>$rel_table,
+                ":name"=>$name,
+                ":alias"=>$alias,
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":pic"=>$pic,
+                ":ptype_id"=>$ptype_id
+            ));          
+                
         }else{
-        $sql = sprintf(""
-                . "UPDATE `ptype` SET "
-                . "`parent_id`='{$parent_id}',`rel_table`='{$rel_table}',`name`='{$name}',`alias`='{$alias}',`title`='{$title}',`meta_description`='{$meta_description}',"
-                . "`meta_keywords`='{$meta_keywords}',`header`='{$header}',`text`='$text' "
-                . "WHERE `id`=$ptype_id"); 
+            $result = $this->prepare("UPDATE `ptype` SET "
+                    . "`parent_id`=:parent_id,`rel_table`=:rel_table,`name`=:name,`alias`=:alias,`title`=:title,"
+                    . "`meta_description`=:meta_description,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text "
+                    . "WHERE `id`=:ptype_id");  
+            
+            $result->execute(array(
+                ":parent_id"=>$parent_id,
+                ":rel_table"=>$rel_table,
+                ":name"=>$name,
+                ":alias"=>$alias,
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":ptype_id"=>$ptype_id
+            ));             
         }
 
-        $result = mysql_query($sql) or die("oh no! ".mysql_error());
         if($result){
             header("Location:admin-products.html");
         }
@@ -118,15 +166,15 @@ class Admin_Model extends Model{
     /*MMY Products functionality***********************************************/
     
     function getMMY(){
-        $result = mysql_query("SELECT * FROM `ptype_mmy`");
-        $result = $this->db->assocAllResult($result);
-        return $result;
+        $sth = $this->prepare("SELECT * FROM `ptype_mmy`");
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
     
     function getProductMMYData($table,$param){
-        $result = mysql_query("SELECT * FROM `{$table}` WHERE `id`='{$param}'");
-        $result = $this->assocRowResult($result);
-        return $result; 
+        $sth = $this->prepare("SELECT * FROM `{$table}` WHERE `id`=:id");
+        $sth->execute(array(":id"=>$param));
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
         
     function saveProductMMY($table){
@@ -140,10 +188,21 @@ class Admin_Model extends Model{
         $text = $_POST['text'];
         $pic = $_POST['pic'];
 
-        $sql = sprintf("INSERT INTO `{$table}` "
-                . "(`ptype_id`,`ptype_name`,`title`,`meta_description`,`meta_keywords`,`header`,`text`,`pic`) "
-                . "VALUES ($ptype_id,'{$name}','{$title}','{$meta_description}','{$meta_keywords}','{$header}','{$text}','{$pic}')");
-        $result = mysql_query($sql) or die("Not added!");       
+        $result = $this->prepare("INSERT INTO `{$table}` "
+                . "(`ptype_id`,`rel_table`,`name`,`alias`,`title`,`meta_description`,`meta_keywords`,`header`,`text`) "
+                . "VALUES (:ptype_id,:rel_table,:name,:alias,:title,:meta_description,:meta_keywords,:header,:text)");  
+        
+        $result->execute(array(
+            ":ptype_id"=>$ptype_id,
+            ":name"=>$name,
+            ":alias"=>$alias,
+            ":title"=>$title,
+            ":meta_description"=>$meta_description,
+            ":meta_keywords"=>$meta_keywords,
+            ":header"=>$header,
+            ":text"=>$text,
+            ":pic"=>$pic
+        ));  
 
         if($result){
             header("Location:admin-products.html");
@@ -155,8 +214,9 @@ class Admin_Model extends Model{
         if(file_exists($result['pic'])){
             unlink($result['pic']);   
         }         
-        $result = mysql_query("DELETE FROM `{$table}` WHERE `id`= {$ptype_id}") or die("Cant delete");
-        if($result){
+        $sth = $this->prepare("DELETE FROM `{$table}` WHERE `id`= :ptype_id");
+        $sth->execute(array(':ptype_id'=>$ptype_id));
+        if($sth){
             header("Location:admin-products.html");
         }
     } 
@@ -172,20 +232,38 @@ class Admin_Model extends Model{
         $pic = $_POST['pic'];
         $sql="";
         if($pic!=""){
-        $sql = sprintf(""
-                . "UPDATE `{$table}` SET "
-                . "`ptype_id`='{$ptype_id}',`ptype_name`='{$name}',`title`='{$title}',`meta_description`='{$meta_description}',"
-                . "`meta_keywords`='{$meta_keywords}',`header`='{$header}',`text`='{$text}',`pic`='{$pic}' "
-                . "WHERE `id`=$id");            
-        }else{
-        $sql = sprintf(""
-                . "UPDATE `{$table}` SET "
-                . "`ptype_id`='{$ptype_id}',`ptype_name`='{$name}',`title`='{$title}',`meta_description`='{$meta_description}',"
-                . "`meta_keywords`='{$meta_keywords}',`header`='{$header}',`text`='{$text}' "
-                . "WHERE `id`=$id"); 
-        }
+            $result = $this->prepare("UPDATE `{$table}` SET "
+                    . "`ptype_id`=:ptype_id,`ptype_name`=:name,`title`=:title,"
+                    . "`meta_description`=:meta_description,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text,`pic`=:pic "
+                    . "WHERE `id`=:id");  
 
-        $result = mysql_query($sql) or die("oh no!".  mysql_error());
+            $result->execute(array(                
+                ":ptype_id"=>$ptype_id,
+                ":id" => $id,
+                ":name"=>$name, 
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":pic"=>$pic
+            )); 
+        }else{
+            $result = $this->prepare("UPDATE `{$table}` SET "
+                    . "`ptype_id`=:ptype_id,`ptype_name`=:name,`title`=:title,"
+                    . "`meta_description`=:meta_description,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text "
+                    . "WHERE `id`=:id");  
+            $result->execute(array(                
+                ":ptype_id"=>$ptype_id,
+                ":id" => $id,
+                ":name"=>$name, 
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text
+            ));
+        }        
         if($result){
             header("Location:admin-products.html");
         }

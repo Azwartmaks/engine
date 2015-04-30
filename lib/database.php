@@ -6,31 +6,24 @@
  * and open the template in the editor.
  */
 
-class Database{
+class Database extends PDO{
     
     function __construct(){
-        $connect = mysql_connect(DB_HOST, DB_USER, DB_PASSWD)or die(mysql_errno());
-        $db = mysql_select_db(DB)or die(mysql_errno());
+        parent::__construct(DB_TYPE.':host='.DB_HOST.';dbname='.DB, DB_USER, DB_PASSWD, array(
+            //PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+        ));
     }
     
     function allTables(){
         $table_list = array();
-        $result = mysql_query("SHOW TABLES FROM `".DB."`");
-        while($row =  mysql_fetch_array($result)){
+        $sth = $this->prepare("SHOW TABLES FROM `".DB."`");
+        $sth->execute();
+        while($row =  $sth->fetchAll(PDO::FETCH_BOTH)){
             $table_list[]=$row;
         }
         return $table_list;
-    }
-    
-    function checkTable($name){
-        $name = str_replace('-', '_', $name);
-        $result = false;
-        foreach ($this->allTables() as $value){
-            if($value[0]==$name){
-                $result = true;
-            }
-        }
-        return $result;
     }
     
     function assocRowResult($mysqlres){
@@ -47,32 +40,33 @@ class Database{
     }
     
     function allMakes(){
-        $result = mysql_query("SELECT `makeid`,`make` FROM `make`");
-        $result = $this->assocAllResult($result);
-        return $result;
+        $result = $this->prepare("SELECT `makeid`,`make` FROM `make`");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function allModels(){
-        $result = mysql_query("SELECT `modelid`,`model` FROM `model`");
-        $result = $this->assocAllResult($result);
-        return $result;
+        $result = $this->prepare("SELECT `modelid`,`model` FROM `model`");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }   
+    
     function checkProduct($url){         
-        $result = mysql_query("SELECT `id` FROM `ptype` WHERE `alias`='{$url}'");
-        $result = $this->assocRowResult($result);
-        return $result;
+        $result = $this->prepare("SELECT `id` FROM `ptype` WHERE `alias`=:alias");
+        $result->execute(array(':alias'=>$url));        
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
     function checkMake($make){
         $make = str_replace('-', ' ', $make);
-        $result = mysql_query("SELECT `makeid`,`make` FROM `make` WHERE `make`='{$make}'");
-        $result = $this->assocRowResult($result);
-        return $result;   
+        $result = $this->prepare("SELECT `makeid`,`make` FROM `make` WHERE `make`=:make");
+        $result->execute(array(":make"=>$make));
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
             
     function checkModel($model){
-        $result = mysql_query("SELECT `modelid` FROM `model` WHERE `model`='{$model}'");
-        $result = $this->assocRowResult($result);
-        return $result;
+        $result = $this->prepare("SELECT `modelid`,`model` FROM `model` WHERE `model`=:model");
+        $result->execute(array(":model"=>$model));
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getMake($urlpart,$urlpart2=null){
@@ -135,26 +129,26 @@ class Database{
     }
     
     function checkMM($makeid,$modelid){
-        $result = mysql_query("SELECT * FROM `model`"
-                . "WHERE `modelid`= '$modelid' and `makeid`= '$makeid'");
-        $result = $this->assocRowResult($result);       
-        return $result;
+        $result = $this->prepare("SELECT * FROM `model` WHERE `modelid`=:modelid and `makeid`=:makeid");
+        $result->execute(array(":modelid"=>$modelid,":makeid"=>$makeid));
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function selectFromTable($tablename){
-        $result = mysql_query("SELECT * FROM `{$tablename}`");
-        $result = $this->assocAllResult($result);
-        return $result;
+        $result = $this->prepare("SELECT * FROM `{$tablename}`");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getAllProducts(){
         $result = $this->selectFromTable('ptype');
         return $result;
     }
+    
     function getAllParentProducts(){
-        $result = mysql_query("SELECT * FROM `ptype` WHERE `parent_id`=0");
-        $result = $this->assocAllResult($result);
-        return $result;
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `parent_id`=0");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     
@@ -187,14 +181,14 @@ class Database{
     }
     
     function getParent($parentid){
-        $result = mysql_query("SELECT * FROM `ptype` WHERE id=$parentid");
-        $result = $this->assocRowResult($result);
-        return $result;
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE id=:parentid");
+        $result->execute(array(":parentid"=>$parentid));
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getProductById($id){
-        $result = mysql_query("SELECT * FROM `ptype` WHERE id=$id");
-        $result = $this->assocRowResult($result);
-        return $result;
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE id=:id");
+        $result->execute(array(":id"=>$id));
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
 }

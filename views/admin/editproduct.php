@@ -1,5 +1,5 @@
 <div class="container">
-    <?php $value = $this->productData;?>
+    <?php $value = $this->productData[0];?>
     <h1>Edit product</h1>
     <form class="row" method="post" action="admin-updateproduct-<?=$value['id']?>.html" enctype="multipart/form-data">
         <div class="col-sm-6">
