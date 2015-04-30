@@ -111,15 +111,15 @@ class Router{
             
         }else{
             $file = 'views/'.$url.'.tpl';   //custom file            
-            if($url=="" || $url="index"){
-                
+            if($url=="" || $url=="index"){
                 require 'controllers/index.php';
                 $controller = new Index();                
                 $controller->loadModel('index_model');
                 $controller->index();
                 
             }elseif(file_exists($file)){ //try to include custom file
-                require $file;
+                $view = new View();
+                $view->render($url);
             }else{
                 new Error();
             }

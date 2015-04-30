@@ -25,8 +25,7 @@ class View extends Smarty{
     }
 }
 
-class AdminView{
-    
+class AdminView{    
     function render($name,$addon=null){
         $file = "views/admin/{$name}.php";
         if(file_exists($file)&&$addon==null){
