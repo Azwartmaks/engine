@@ -110,20 +110,36 @@ class Router{
             }
             
         }else{
-            $file = 'views/'.$url.'.tpl';   //custom file            
+            $file = 'views/'.$url.'.tpl';   //custom file        
+            $urlpart = explode('-', $url);
             if($url=="" || $url=="index"){
                 require 'controllers/index.php';
                 $controller = new Index();                
                 $controller->loadModel('index_model');
                 $controller->index();
-                
+
             }elseif(file_exists($file)){ //try to include custom file
                 $view = new View();
-                $view->render($url);
+                $view->render($url,'custom');
+            }elseif(file_exists("controller/{$urlpart[0]}.php")){
+                require "controller/{$urlpart[0]}.php";
+                $controller = new $urlpart[0]();
+                $controller->loadModel($url[0].'_model');
+                if($urlpart[2]!=null){
+                    if(method_exists($urlpart[0], $urlpart[1])){
+                        $controller->$urlpart[1]($urlpart[2]);
+                    }
+                }elseif($url[1]!=null){
+                    if(method_exists($urlpart[0], $urlpart[1])){
+                        $controller->$urlpart[1]();
+                    }
+                }else{
+                    $controller->index();
+                }
             }else{
                 new Error();
-            }
-        }        
+            }      
+        }
     }
 }
 /*Class which can show Error Page*/
