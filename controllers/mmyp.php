@@ -12,7 +12,7 @@ class MMYP extends Controller {
         $this->MMYPData = $this->model->MMYPData($productdata['id']);
         $this->view->varToTemp('products', $this->model->getAllParentProducts());
         $this->view->varToTemp('makes', $this->model->allMakes());
-                $this->view->varToTemp('models', $this->model->getModels($makeData['makeid'],$productTable));
+        $this->view->varToTemp('models', $this->model->getModels($makeData['makeid'],$productTable));
         $this->view->varToTemp('years', $this->model->getYears($modelData['modelid'],$productTable));
         $this->view->varToTemp('productname', $productdata['name']);
         $this->view->varToTemp('productUrl', $productdata['alias']);

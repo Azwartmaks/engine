@@ -42,9 +42,9 @@
                 </div>
                 <nav class="pull-left top-nav">
                     <ul>  
-                        <li><a href="/"{if $url==null || $url=='index'} {"class='active'"}{/if}>Home</a></li>
+                        <li><a href="/"{if $url=='/' || $url=='index'} {"class='active'"}{/if}>Home</a></li>
                         <li><a href="/">About Us</a></li>
-                        <li><a href="/">Contact Us</a></li>
+                        <li><a href="contact-us.html"{if $url=='/contact-us'} {"class='active'"}{/if}>Contact Us</a></li>
                     </ul>
                 </nav>                
                 <div class="pull-right">

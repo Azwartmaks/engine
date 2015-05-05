@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-04-27 15:16:37
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-05 16:26:24
          compiled from "views\mp.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:32318553df4ee380d90-85016607%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '43ad82b710559c08ca77d34f8fafcb2fe81d5ebf' => 
     array (
       0 => 'views\\mp.tpl',
-      1 => 1430136993,
+      1 => 1430832378,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'header' => 0,
-    'text' => 0,
-    'models' => 0,
     'make' => 0,
+    'products' => 0,
+    'product' => 0,
+    'models' => 0,
     'model' => 0,
     'productUrl' => 0,
-    'product' => 0,
-    'products' => 0,
+    'productname' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -41,23 +41,23 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <hr/>
         <h1><?php echo $_smarty_tpl->tpl_vars['header']->value;?>
 </h1>
-        <?php echo $_smarty_tpl->tpl_vars['text']->value;?>
 
-        <ul>
-            <?php  $_smarty_tpl->tpl_vars['model'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['model']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['models']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars['model']->key => $_smarty_tpl->tpl_vars['model']->value) {
-$_smarty_tpl->tpl_vars['model']->_loop = true;
-?>
-            <li><a href="<?php echo $_smarty_tpl->tpl_vars['make']->value;?>
--<?php echo $_smarty_tpl->tpl_vars['model']->value['model'];?>
--<?php echo $_smarty_tpl->tpl_vars['productUrl']->value;?>
-.html"><?php echo $_smarty_tpl->tpl_vars['model']->value['model'];?>
- <?php echo $_smarty_tpl->tpl_vars['product']->value;?>
-</a></li>
-            <?php } ?>
-        </ul>
-        
+        <p>You can install a grill or <a href="http://www.scienceg8.com/abs-plastic-body-kits.html">ABS Plastic Body Kits</a> on your car. It will make your car more attractive but it won't make your vehicle faster. If you want to have a fast car install some performance accessories.</p>
+        <p>Automobiles industry is one of the largest sectors in this whole world since everyone nowadays owns a vehicle. Moreover, any sector that is big obviously includes a lot of competition. Therefore, to keep up with the competition, creativity becomes very important. Acura cars have its own status in the automobiles industry and are mostly popular for their wide range of racing cars. Undoubtedly, it is very famous and known brand in the Automobiles industry nowadays, mostly because of its awesome performance, which is a result of Acura performance accessories.</p>
+        <p><b><?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
+</b> does not stop right after launching their new models, but they also do provide various additional performance parts for the Acura owners. So upgrading your car with these performance parts can add up to extra performance rating than previously.</p>
+        <p>There is a huge amount of additional performance parts for Acura cars that are available in the market, but below mentioned are the most important and basic parts mentioned.</p>
+        <p>1. <?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
+ Exhaust system: Custom Exhaust is pretty big in size and it works perfectly in keeping the engine clean from toxics and helps boosting the torque along with the horsepower.</p>
+        <p>2. <?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
+ Air intakes: are much better than the normal intakes and they work far better as they are specially made for mustang cars. The air filters and the latest technology used in those intakes never lets the engine heat up and are even takes care of the engine on rainy days.</p>
+        <p>3. <?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
+ Pulley: adds the extra punch that you need for your ride and increases the horsepower. It is generally made of aluminium and adds that exact extra boost that your Acura might need.</p>
+        <p>4. <?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
+ Headers: Headers might not seem that important but it does give your car a decent amount of power boost, more fuel efficiency and better performance of the exhaust system and obviously, Acura Headers being specially built for its cars serves all these actions better than the normal ones.</p>
+        <p>These four parts are the main ones that are needed to be upgraded in your car, it’s not like they are needed to be done at once but they all add their own benefit to the car’s overall performance. Therefore, it would be wise to upgrade them all.</p>
+    <?php echo $_smarty_tpl->getSubTemplate ("blocks/footer-product.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
     </div>
     <div class="sidebar col-sm-3">
         <div class="side-block first">
@@ -84,6 +84,26 @@ $_smarty_tpl->tpl_vars['product']->_loop = true;
         </div>
         <div class="side-block first">
             <div class="side-h2">
+                <?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
+ model
+            </div>
+            <ul class="side-list">
+                <?php  $_smarty_tpl->tpl_vars['model'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['model']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['models']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['model']->key => $_smarty_tpl->tpl_vars['model']->value) {
+$_smarty_tpl->tpl_vars['model']->_loop = true;
+?>
+                    <li><a href="<?php echo $_smarty_tpl->tpl_vars['make']->value;?>
+-<?php echo $_smarty_tpl->tpl_vars['model']->value['model'];?>
+-<?php echo $_smarty_tpl->tpl_vars['productUrl']->value;?>
+.html"><b><?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['model']->value['model']);?>
+</b> <?php echo $_smarty_tpl->tpl_vars['productname']->value;?>
+</a></li>
+                <?php } ?>
+            </ul>
+        </div>  
+        <div class="side-block first">
+            <div class="side-h2">
                 Videos
             </div>
             <ul class="side-list">
@@ -96,5 +116,4 @@ $_smarty_tpl->tpl_vars['product']->_loop = true;
     </div>
     <div class="clearfix"></div>
 </div> 
-<?php echo $_smarty_tpl->getSubTemplate ("blocks/footer-product.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
 <?php }} ?>

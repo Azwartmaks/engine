@@ -13,6 +13,7 @@ class View extends Smarty{
     }
     function render($name,$custom = null){
         $this->uri = str_replace('.html','',$_SERVER['REQUEST_URI']);
+        $this->assign('url',$this->uri);
         $file = "views/{$name}.tpl";
                 $this->setTemplateDir('views/');
         $this->setCompileDir('views_c/');

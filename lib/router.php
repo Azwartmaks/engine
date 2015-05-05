@@ -15,8 +15,6 @@ class Router{
             preg_match("/^([0-9]+)-([a-z]+)-(.*)-{$value['alias']}$/", $url, $mmyp);
             preg_match("/^([a-z]+)-(.*)-{$value['alias']}$/", $url, $mmp);
             preg_match("/^([a-z]+)-{$value['alias']}$/", $url, $mp);
-//            preg_match("/\/{$value['alias']}$/", $url, $p); 
-//            if(!empty($mmyp) || !empty($mmp) || !empty($mp) || !empty($p)){
             if(!empty($mmyp) || !empty($mmp) || !empty($mp)){
                 $current_product = $value['alias'];
                 break;                

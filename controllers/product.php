@@ -13,7 +13,7 @@ class Product extends Controller{
         $this->view->varToTemp('makes', $this->model->allMakes());
         $this->view->varToTemp('productUrl',$product['alias']);
         $this->view->varToTemp('productname',$product['name']);
-        $this->view->varToTemp('products',$this->model->getAllProducts());
+        $this->view->varToTemp('products',$this->model->getAllParentProducts());
         $this->view->varToTemp('title',$product['title']);
         $this->view->varToTemp('meta_description',$product['meta_description']);
         $this->view->varToTemp('meta_keywords',$product['meta_keywords']);

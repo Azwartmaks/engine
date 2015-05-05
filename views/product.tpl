@@ -11,7 +11,6 @@
             </ul>
         {/if}
         {$text}
-
     </div>
     <div class="sidebar col-sm-3">
         <div class="side-block first">
@@ -44,4 +43,4 @@
     </div>
     <div class="clearfix"></div>
 </div>   
-{include file="blocks/footer-product.tpl"}
+        {include file="blocks/footer-product.tpl"}
