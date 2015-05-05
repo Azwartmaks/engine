@@ -15,4 +15,4 @@ define("DB",'daily');
 define("ADM_LOGIN","admin88");
 define("ADM_PASS","satellite88");
 
-define("PTYPE","wood-grain-dash-kits,spoilers");
+//define("PTYPE","wood-grain-dash-kits,spoilers");
