@@ -25,20 +25,7 @@ class Database extends PDO{
         }
         return $table_list;
     }
-    
-    function assocRowResult($mysqlres){
-        $row =  mysql_fetch_assoc($mysqlres);
-        return $row;
-    }
-    
-    function assocAllResult($mysqlres){
-        $rows_arr = array();
-        while ($row = mysql_fetch_assoc($mysqlres)){
-            $rows_arr[]=$row;
-        }
-        return $rows_arr;
-    }
-    
+ 
     function allMakes(){
         $result = $this->prepare("SELECT `makeid`,`make` FROM `make`");
         $result->execute();
@@ -146,12 +133,11 @@ class Database extends PDO{
     }
     
     function getAllParentProducts(){
-        $result = $this->prepare("SELECT * FROM `ptype` WHERE `parent_id`=0");
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `parent_id`=0 AND type='product'");
         $result->execute();
         return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
-    
-    
+        
     function productOnly(){
         $url = $_GET['url'];
         $products = $this->getAllProducts();

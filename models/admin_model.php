@@ -26,13 +26,13 @@ class Admin_Model extends Model{
     }
     
     function getProducts(){
-        $result = $this->prepare("SELECT * FROM `ptype`");
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `type`='product'");
         $result->execute();
         return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
     function getProductData($param){
-        $result = $this->prepare("SELECT * FROM `ptype` WHERE `id`= :id");
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `id`= :id AND `type`='product'");
         $result->execute(array(':id'=>$param));
         return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
@@ -50,12 +50,13 @@ class Admin_Model extends Model{
         $pic = $_POST['pic'];
         
         $result = $this->prepare("INSERT INTO `ptype` "
-                . "(`parent_id`,`rel_table`,`name`,`alias`,`title`,`meta_description`,`meta_keywords`,`header`,`text`,`pic`) "
-                . "VALUES (:parent_id,:rel_table,:name,:alias,:title,:meta_description,:meta_keywords,:header,:text,:pic)");  
+                . "(`parent_id`,`rel_table`,`type`,`name`,`alias`,`title`,`meta_description`,`meta_keywords`,`header`,`text`,`pic`) "
+                . "VALUES (:parent_id,:rel_table,:type,:name,:alias,:title,:meta_description,:meta_keywords,:header,:text,:pic)");  
         
         $result->execute(array(
             ":parent_id"=>$parent_id,
             ":rel_table"=>$rel_table,
+            ":type"=>'product',
             ":name"=>$name,
             ":alias"=>$alias,
             ":title"=>$title,
@@ -268,6 +269,167 @@ class Admin_Model extends Model{
             header("Location:admin-products.html");
         }
     }
+    
+    function getBrands(){
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `type`='brand'");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
+    
+    function saveBrand(){
+        $name = $_POST['name'];
+        $alias = $_POST['alias'];
+        $title = $_POST['title'];
+        $meta_description = $_POST['meta_description'];
+        $meta_keywords = $_POST['meta_keywords'];
+        $header = $_POST['header'];
+        $text = $_POST['text'];
+        $pic = $_POST['pic'];
+        
+        /*Get data for Gallery**********************************************/
+        $result = $this->prepare("INSERT INTO `ptype` "
+                . "(`type`,`name`,`alias`,`title`,`meta_description`,`meta_keywords`,`header`,`text`,`pic`) "
+                . "VALUES (:type,:name,:alias,:title,:meta_description,:meta_keywords,:header,:text,:pic)");  
+        
+        $result->execute(array(
+            ":type"=>'brand',
+            ":name"=>$name,
+            ":alias"=>$alias,
+            ":title"=>$title,
+            ":meta_description"=>$meta_description,
+            ":meta_keywords"=>$meta_keywords,
+            ":header"=>$header,
+            ":text"=>$text,
+            ":pic"=>$pic
+        ));        
+        
+        $sth = $this->prepare("SELECT id FROM  `ptype` ORDER BY id DESC LIMIT 1");
+        $sth->execute();
+        $res = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        $last_id = $res[0]['id'];
+        
+        if($_POST['imgpath'][0]!="" || $_POST['features']!=''){
+            $src = json_encode($_POST['imgpath']);
+            $alt = json_encode($_POST['imgalt']);
+            $theme = json_encode($_POST['imgtheme']);
+            $features = $_POST['features'];
+            $sth = $this->prepare("INSERT INTO `brands_data`(`brand_id`,`img_src`,`alt`,`theme`,`features`) "
+                    . "VALUES (:last_id,:src,:alt,:theme,:features)");
+            $sth->execute(array(
+                ':last_id'=>$last_id,
+                ':src'=>$src,
+                ':alt'=>$alt,
+                ':theme'=>$theme,
+                ':features'=>$features
+            ));            
+        }        
+        if($sth){
+            header("Location:admin-brands.html");
+        }
+    }  
+    
+    function getBrandData($brand_id){
+        $sth = $this->prepare("SELECT * FROM `ptype` P "
+                . "LEFT JOIN `brands_data` BD ON BD.`brand_id`=P.`id` WHERE "
+                . "P.`id` = :brand_id");
+        $sth->execute(array(':brand_id'=>$brand_id));
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    function updateBrand($brand_id){
+        $name = $_POST['name'];
+        $alias = $_POST['alias'];
+        $title = $_POST['title'];
+        $meta_description = $_POST['meta_description'];
+        $meta_keywords = $_POST['meta_keywords'];
+        $header = $_POST['header'];
+        $text = str_replace(array("'"),array("&#39;"),$_POST['text']);
+        $pic = $_POST['pic'];
+        
+        if($pic!=""){
+            $result = $this->prepare("UPDATE `ptype` SET "
+                    . "`name`=:name,`alias`=:alias,`title`=:title,"
+                    . "`meta_description`=:meta_description,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text,`pic`=:pic "
+                    . "WHERE `id`=:ptype_id");  
+            $result->execute(array(
+                ":name"=>$name,
+                ":alias"=>$alias,
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":pic"=>$pic,
+                ":ptype_id"=>$brand_id
+            )); 
+            
+            $src = json_encode($_POST['imgpath']);
+            $alt = json_encode($_POST['imgalt']);
+            $theme = json_encode($_POST['imgtheme']);
+            $features = $_POST['features'];
+            $sth = $this->prepare("UPDATE `brands_data`"
+                    . " SET `img_src`=:src,`alt`=:alt,`theme`=:theme,`features`=:features "
+                    . " WHERE `brand_id`=:last_id ");
+            $sth->execute(array(
+                ':last_id'=>$brand_id,
+                ':src'=>$src,
+                ':alt'=>$alt,
+                ':theme'=>$theme,
+                ':features'=>$features
+            )); 
+ 
+        }else{
+            $result = $this->prepare("UPDATE `ptype` SET "
+                    . "`name`=:name,`alias`=:alias,`title`=:title,"
+                    . "`meta_description`=:meta_description`,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text "
+                    . "WHERE `id`=:ptype_id");  
+            
+            $result->execute(array(
+                ":name"=>$name,
+                ":alias"=>$alias,
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":ptype_id"=>$brand_id
+            ));             
+
+            $src = json_encode($_POST['imgpath']);
+            $alt = json_encode($_POST['imgalt']);
+            $theme = json_encode($_POST['imgtheme']);
+            $features = $_POST['features'];
+            $sth = $this->prepare("UPDATE `brands_data`"
+                    . " SET `img_src`=:src,`alt`=:alt,`theme`=:theme,`features`=:features "
+                    . " WHERE `brand_id`=:last_id ");
+            $sth->execute(array(
+                ':last_id'=>$brand_id,
+                ':src'=>$src,
+                ':alt'=>$alt,
+                ':theme'=>$theme,
+                ':features'=>$features
+            ));            
   
+        }
+
+        if($result){
+            header("Location:admin-brands.html");
+        }
+    }
+    
+    function deleteBrand($brand_id){
+        $sth = $this->prepare("DELETE FROM `ptype` WHERE id=:brand_id");
+        $sth->execute(array(':brand_id'=>$brand_id));
+        
+        $sth = $this->prepare("DELETE FROM `brands_data` WHERE brand_id=:brand_id");
+        $sth->execute(array(':brand_id'=>$brand_id));        
+    }
+    
+    function getArticles(){
+        $result = $this->prepare("SELECT * FROM `ptype` WHERE `type`='article'");
+        $result->execute();
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
     
 }

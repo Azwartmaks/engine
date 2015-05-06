@@ -160,6 +160,7 @@ class Admin extends Controller{
     }
     
     function editProductMM($param){
+        $this->is_login();
         $this->adminview->products = $this->model->getProducts();
         $this->productData = $this->model->getProductMMYData('ptype_mm',$param);
         $this->adminview->productData = $this->productData[0];
@@ -208,6 +209,7 @@ class Admin extends Controller{
     }
     
     function editProductM($param){
+        $this->is_login();
         $this->adminview->products = $this->model->getProducts();
         $this->adminview->formAction = 'updateproductm';
         $this->adminview->tablename = "M";
@@ -228,6 +230,67 @@ class Admin extends Controller{
         $_POST['pic']=$uploadfile;
         $this->model->updateProductMMY('ptype_m',$id);
     }
+    
+    function brands(){
+        $this->is_login();
+        $this->adminview->allBrands = $this->model->getBrands();
+        $this->adminview->render('brands');
+    }
+    
+    function addBrand(){
+        $this->is_login();
+        $this->adminview->render('addBrand');
+    }
+    function saveBrand(){
+        $this->is_login();
         
-
+        $uploadfile = "views/images/products/".$_FILES["pic"]["name"];
+        if(is_uploaded_file($_FILES["pic"]["tmp_name"])){
+            move_uploaded_file($_FILES["pic"]["tmp_name"], $uploadfile);
+        }else{
+            $uploadfile="";
+        }
+        $_POST['pic']=$uploadfile;  
+        $this->model->saveBrand();
+    }
+    
+    function editBrand($brand_id){
+        $this->is_login();
+        
+        $this->brandData = $this->model->getBrandData($brand_id);
+        $this->adminview->brandData=$this->brandData;
+        
+        $this->adminview->imgsrc = json_decode($this->brandData[0]['img_src']);
+        $this->adminview->alt = json_decode($this->brandData[0]['alt']);
+        $this->adminview->theme = json_decode($this->brandData[0]['theme']);
+        $this->adminview->render('editBrand');
+    }
+    
+    function updateBrand($brand_id){
+        $this->is_login();
+        
+        $uploadfile = "views/images/products/".$_FILES["pic"]["name"];
+        if(is_uploaded_file($_FILES["pic"]["tmp_name"])){
+            move_uploaded_file($_FILES["pic"]["tmp_name"], $uploadfile);
+        }else{
+            $uploadfile="";
+        }
+        $_POST['pic']=$uploadfile;  
+        $this->model->updateBrand($brand_id);
+    }
+    function deleteBrand($brand_id){
+        $this->is_login();
+        $this->model->deleteBrand($brand_id);
+    }
+    
+    function articles(){
+        $this->is_login();
+        $this->adminview->allArticles = $this->model->getArticles();
+        $this->adminview->render('articles');
+    }
+    
+    function addArticle(){
+        $this->is_login();
+        $this->adminview->render('addArticle');
+    }
 }

@@ -12,6 +12,8 @@
                 <ul class="nav navbar-nav pull-left">
                     <li><a href="/admin.html">Admin page</a></li>
                     <li><a href="/admin-products.html">Products</a></li>
+                    <li><a href="/admin-brands.html">Brands</a></li>
+                    <li><a href="/admin-articles.html">Articles</a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li><a href="/admin-logout.html">Log Out</a></li>
