@@ -36,8 +36,12 @@
                 <input type="file" name="pic">
                 <p class="help-block">Logo for this Article.</p>                
             </div>   
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" name="category" placeholder="category name" class="form-control"/>
+            </div>
             <div class="form-group galleryData">                
-                <label>Gallery images</label><hr/>
+                <label>Gallery images</label>
                 <div class="img-dataBox">
                     <label>src</label>
                     <input type="text" name="imgpath[]" class="form-control"/>

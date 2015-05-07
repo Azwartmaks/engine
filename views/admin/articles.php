@@ -24,8 +24,8 @@
                                 <td class="text-center">
                                     <img src="<?=$value['pic']?>" width="50" height="50"/>
                                 </td>
-                                <td class="text-center"><a href="admin-editbrand-<?=$value['id']?>.html"><i class="fa fa-pencil"></i></a></td>
-                                <td class="text-center"><a href="admin-deletebrand-<?=$value['id']?>.html"><i class="fa fa-trash"></i></a></td>
+                                <td class="text-center"><a href="admin-editarticle-<?=$value['id']?>.html"><i class="fa fa-pencil"></i></a></td>
+                                <td class="text-center"><a href="admin-deletearticle-<?=$value['id']?>.html"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         <?php endforeach;?>
                     </table>

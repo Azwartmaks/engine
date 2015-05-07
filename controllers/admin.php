@@ -244,7 +244,7 @@ class Admin extends Controller{
     function saveBrand(){
         $this->is_login();
         
-        $uploadfile = "views/images/products/".$_FILES["pic"]["name"];
+        $uploadfile = "views/images/brand/".$_FILES["pic"]["name"];
         if(is_uploaded_file($_FILES["pic"]["tmp_name"])){
             move_uploaded_file($_FILES["pic"]["tmp_name"], $uploadfile);
         }else{
@@ -269,7 +269,7 @@ class Admin extends Controller{
     function updateBrand($brand_id){
         $this->is_login();
         
-        $uploadfile = "views/images/products/".$_FILES["pic"]["name"];
+        $uploadfile = "views/images/brand/".$_FILES["pic"]["name"];
         if(is_uploaded_file($_FILES["pic"]["tmp_name"])){
             move_uploaded_file($_FILES["pic"]["tmp_name"], $uploadfile);
         }else{
@@ -278,6 +278,7 @@ class Admin extends Controller{
         $_POST['pic']=$uploadfile;  
         $this->model->updateBrand($brand_id);
     }
+    
     function deleteBrand($brand_id){
         $this->is_login();
         $this->model->deleteBrand($brand_id);
@@ -292,5 +293,47 @@ class Admin extends Controller{
     function addArticle(){
         $this->is_login();
         $this->adminview->render('addArticle');
+    }
+    
+    function saveArticle(){
+        $this->is_login();
+        
+        $uploadfile = "views/images/article/".$_FILES["pic"]["name"];
+        if(is_uploaded_file($_FILES["pic"]["tmp_name"])){
+            move_uploaded_file($_FILES["pic"]["tmp_name"], $uploadfile);
+        }else{
+            $uploadfile="";
+        }
+        $_POST['pic']=$uploadfile;  
+        $this->model->saveArticle();
+    }
+    
+    function editArticle($article_id){
+        $this->is_login();
+        
+        $this->articleData = $this->model->getArticleData($article_id);
+        $this->adminview->articleData=$this->articleData;
+        $this->adminview->imgsrc = json_decode($this->articleData[0]['img_src']);
+        $this->adminview->alt = json_decode($this->articleData[0]['alt']);
+        $this->adminview->theme = json_decode($this->articleData[0]['theme']);
+        $this->adminview->render('editArticle');
+    }
+    
+    function updateArticle($article_id){
+        $this->is_login();
+        
+        $uploadfile = "views/images/article/".$_FILES["pic"]["name"];
+        if(is_uploaded_file($_FILES["pic"]["tmp_name"])){
+            move_uploaded_file($_FILES["pic"]["tmp_name"], $uploadfile);
+        }else{
+            $uploadfile="";
+        }
+        $_POST['pic']=$uploadfile;  
+        $this->model->updateArticle($article_id);
+    }
+    
+    function deleteArticle($article_id){
+        $this->is_login();
+        $this->model->deleteArticle($article_id);
     }
 }

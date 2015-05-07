@@ -116,24 +116,25 @@ class Router{
                 $controller->loadModel('index_model');
                 $controller->index();
 
-            }elseif(file_exists($file)){ //try to include custom file
-                $view = new View();
-                $view->render($url,'custom');
-            }elseif(file_exists("controller/{$urlpart[0]}.php")){
-                require "controller/{$urlpart[0]}.php";
+            }elseif(file_exists("controllers/{$urlpart[0]}.php")){
+                require "controllers/{$urlpart[0]}.php";
                 $controller = new $urlpart[0]();
-                $controller->loadModel($url[0].'_model');
+                $controller->loadModel($urlpart[0].'_model');
+                
                 if($urlpart[2]!=null){
                     if(method_exists($urlpart[0], $urlpart[1])){
                         $controller->$urlpart[1]($urlpart[2]);
                     }
-                }elseif($url[1]!=null){
+                }elseif($urlpart[1]!=null){
                     if(method_exists($urlpart[0], $urlpart[1])){
                         $controller->$urlpart[1]();
                     }
                 }else{
                     $controller->index();
                 }
+            }elseif(file_exists($file)){ //try to include custom file
+                $view = new View();
+                $view->render($url,'custom');
             }else{
                 new Error();
             }      

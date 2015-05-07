@@ -37,7 +37,7 @@
                 <p class="help-block">Logo for this brand.</p>                
             </div>   
             <div class="form-group galleryData">                
-                <label>Gallery images</label><hr/>
+                <label>Gallery images</label>
                 <div class="img-dataBox">
                     <label>src</label>
                     <input type="text" name="imgpath[]" class="form-control"/>

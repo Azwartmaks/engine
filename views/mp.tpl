@@ -16,7 +16,6 @@
         <p>3. {$make|capitalize} Pulley: adds the extra punch that you need for your ride and increases the horsepower. It is generally made of aluminium and adds that exact extra boost that your Acura might need.</p>
         <p>4. {$make|capitalize} Headers: Headers might not seem that important but it does give your car a decent amount of power boost, more fuel efficiency and better performance of the exhaust system and obviously, Acura Headers being specially built for its cars serves all these actions better than the normal ones.</p>
         <p>These four parts are the main ones that are needed to be upgraded in your car, it’s not like they are needed to be done at once but they all add their own benefit to the car’s overall performance. Therefore, it would be wise to upgrade them all.</p>
-    {include file="blocks/footer-product.tpl"}
     </div>
     <div class="sidebar col-sm-3">
         <div class="side-block first">
@@ -59,3 +58,4 @@
     </div>
     <div class="clearfix"></div>
 </div> 
+{include file="blocks/footer-product.tpl"}

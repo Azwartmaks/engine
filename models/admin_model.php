@@ -309,28 +309,27 @@ class Admin_Model extends Model{
 
         $last_id = $res[0]['id'];
         
-        if($_POST['imgpath'][0]!="" || $_POST['features']!=''){
-            $src = json_encode($_POST['imgpath']);
-            $alt = json_encode($_POST['imgalt']);
-            $theme = json_encode($_POST['imgtheme']);
-            $features = $_POST['features'];
-            $sth = $this->prepare("INSERT INTO `brands_data`(`brand_id`,`img_src`,`alt`,`theme`,`features`) "
-                    . "VALUES (:last_id,:src,:alt,:theme,:features)");
-            $sth->execute(array(
-                ':last_id'=>$last_id,
-                ':src'=>$src,
-                ':alt'=>$alt,
-                ':theme'=>$theme,
-                ':features'=>$features
-            ));            
-        }        
+        $src = json_encode($_POST['imgpath']);
+        $alt = json_encode($_POST['imgalt']);
+        $theme = json_encode($_POST['imgtheme']);
+        $features = $_POST['features'];
+        $sth = $this->prepare("INSERT INTO `brands_data`(`brand_id`,`img_src`,`alt`,`theme`,`features`) "
+                . "VALUES (:last_id,:src,:alt,:theme,:features)");
+        $sth->execute(array(
+            ':last_id'=>$last_id,
+            ':src'=>$src,
+            ':alt'=>$alt,
+            ':theme'=>$theme,
+            ':features'=>$features
+        ));           
+        
         if($sth){
             header("Location:admin-brands.html");
         }
     }  
     
     function getBrandData($brand_id){
-        $sth = $this->prepare("SELECT * FROM `ptype` P "
+        $sth = $this->prepare("SELECT P.*, BD.`brand_id`, BD.`img_src`, BD.`alt`,BD.`theme`,BD.`features` FROM `ptype` P "
                 . "LEFT JOIN `brands_data` BD ON BD.`brand_id`=P.`id` WHERE "
                 . "P.`id` = :brand_id");
         $sth->execute(array(':brand_id'=>$brand_id));
@@ -423,7 +422,9 @@ class Admin_Model extends Model{
         $sth->execute(array(':brand_id'=>$brand_id));
         
         $sth = $this->prepare("DELETE FROM `brands_data` WHERE brand_id=:brand_id");
-        $sth->execute(array(':brand_id'=>$brand_id));        
+        $sth->execute(array(':brand_id'=>$brand_id)); 
+        if($sth)
+            header("Location:admin-brands.html");
     }
     
     function getArticles(){
@@ -432,4 +433,157 @@ class Admin_Model extends Model{
         return $result->fetchAll(PDO::FETCH_ASSOC); 
     }
     
+    function saveArticle(){
+        $name = $_POST['name'];
+        $alias = $_POST['alias'];
+        $title = $_POST['title'];
+        $meta_description = $_POST['meta_description'];
+        $meta_keywords = $_POST['meta_keywords'];
+        $header = $_POST['header'];
+        $text = $_POST['text'];
+        $pic = $_POST['pic'];
+        
+        /*Get data for Gallery**********************************************/
+        $result = $this->prepare("INSERT INTO `ptype` "
+                . "(`type`,`name`,`alias`,`title`,`meta_description`,`meta_keywords`,`header`,`text`,`pic`) "
+                . "VALUES (:type,:name,:alias,:title,:meta_description,:meta_keywords,:header,:text,:pic)");  
+        
+        $result->execute(array(
+            ":type"=>'article',
+            ":name"=>$name,
+            ":alias"=>$alias,
+            ":title"=>$title,
+            ":meta_description"=>$meta_description,
+            ":meta_keywords"=>$meta_keywords,
+            ":header"=>$header,
+            ":text"=>$text,
+            ":pic"=>$pic
+        ));        
+        
+        $sth = $this->prepare("SELECT id FROM  `ptype` ORDER BY id DESC LIMIT 1");
+        $sth->execute();
+        $res = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        $last_id = $res[0]['id'];
+        
+        $src = json_encode($_POST['imgpath']);
+        $alt = json_encode($_POST['imgalt']);
+        $theme = json_encode($_POST['imgtheme']);
+        $features = $_POST['features'];
+        $category = $_POST['category'];
+        $sth = $this->prepare("INSERT INTO `articles_data`(`brand_id`,`img_src`,`alt`,`theme`,`features`,`category`) "
+                . "VALUES (:last_id,:src,:alt,:theme,:features,:category)");
+        $sth->execute(array(
+            ':last_id'=>$last_id,
+            ':src'=>$src,
+            ':alt'=>$alt,
+            ':theme'=>$theme,
+            ':features'=>$features,
+            ':category'=>$category
+        ));            
+               
+        if($sth){
+            header("Location:admin-articles.html");
+        }
+    } 
+    
+    function getArticleData($article_id){
+        $sth = $this->prepare("SELECT P . * , AD.`article_id` , AD.`img_src` , AD.`alt` , AD.`theme` , AD.`features` , AD.`category` 
+                                FROM  `ptype` P
+                                LEFT JOIN  `articles_data` AD ON AD.`article_id` = P.`id` 
+                            WHERE P.`id` = :article_id");
+        $sth->execute(array(':article_id'=>$article_id));
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    function updateArticle($article_id){
+        $name = $_POST['name'];
+        $alias = $_POST['alias'];
+        $title = $_POST['title'];
+        $meta_description = $_POST['meta_description'];
+        $meta_keywords = $_POST['meta_keywords'];
+        $header = $_POST['header'];
+        $text = str_replace(array("'"),array("&#39;"),$_POST['text']);
+        $pic = $_POST['pic'];
+        
+            $src = json_encode($_POST['imgpath']);
+            $alt = json_encode($_POST['imgalt']);
+            $theme = json_encode($_POST['imgtheme']);
+            $features = $_POST['features'];
+            $category = $_POST['category'];
+            
+        if($pic!=""){
+            $result = $this->prepare("UPDATE `ptype` SET "
+                    . "`name`=:name,`alias`=:alias,`title`=:title,"
+                    . "`meta_description`=:meta_description,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text,`pic`=:pic "
+                    . "WHERE `id`=:ptype_id");  
+            $result->execute(array(
+                ":name"=>$name,
+                ":alias"=>$alias,
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":pic"=>$pic,
+                ":ptype_id"=>$article_id
+            ));             
+
+            $sth = $this->prepare("UPDATE `articles_data`"
+                    . " SET `img_src`=:src,`alt`=:alt,`theme`=:theme,`features`=:features, `category`=:category "
+                    . " WHERE `article_id`=:last_id ");
+            $sth->execute(array(
+                ':last_id'=>$article_id,
+                ':src'=>$src,
+                ':alt'=>$alt,
+                ':theme'=>$theme,
+                ':features'=>$features,
+                ':category'=>$category    
+            )); 
+ 
+        }else{
+            $result = $this->prepare("UPDATE `ptype` SET "
+                    . "`name`=:name,`alias`=:alias,`title`=:title,"
+                    . "`meta_description`=:meta_description`,`meta_keywords`=:meta_keywords,`header`=:header,`text`=:text "
+                    . "WHERE `id`=:ptype_id");  
+            
+            $result->execute(array(
+                ":name"=>$name,
+                ":alias"=>$alias,
+                ":title"=>$title,
+                ":meta_description"=>$meta_description,
+                ":meta_keywords"=>$meta_keywords,
+                ":header"=>$header,
+                ":text"=>$text,
+                ":ptype_id"=>$article_id
+            ));    
+
+
+            $sth = $this->prepare("UPDATE `articles_data`"
+                    . " SET `img_src`=:src,`alt`=:alt,`theme`=:theme,`features`=:features,`category`=:category"
+                    . " WHERE `article_id`=:last_id ");
+            $sth->execute(array(
+                ':last_id'=>$article_id,
+                ':src'=>$src,
+                ':alt'=>$alt,
+                ':theme'=>$theme,
+                ':features'=>$features,
+                ':category'=>$category 
+            ));            
+  
+        }
+
+        if($result){
+            header("Location:admin-articles.html");
+        }
+    }
+    function deleteArticle($article_id){
+        $sth = $this->prepare("DELETE FROM `ptype` WHERE id=:article_id");
+        $sth->execute(array(':article_id'=>$article_id));
+        
+        $sth = $this->prepare("DELETE FROM `articles_data` WHERE brand_id=:article_id");
+        $sth->execute(array(':article_id'=>$article_id)); 
+        if($sth)
+            header("Location:admin-articles.html");
+    }
 }

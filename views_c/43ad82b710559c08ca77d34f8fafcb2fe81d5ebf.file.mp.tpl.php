@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-05 16:26:24
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-07 14:16:41
          compiled from "views\mp.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:32318553df4ee380d90-85016607%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '43ad82b710559c08ca77d34f8fafcb2fe81d5ebf' => 
     array (
       0 => 'views\\mp.tpl',
-      1 => 1430832378,
+      1 => 1430997396,
       2 => 'file',
     ),
   ),
@@ -56,8 +56,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <p>4. <?php echo smarty_modifier_capitalize($_smarty_tpl->tpl_vars['make']->value);?>
  Headers: Headers might not seem that important but it does give your car a decent amount of power boost, more fuel efficiency and better performance of the exhaust system and obviously, Acura Headers being specially built for its cars serves all these actions better than the normal ones.</p>
         <p>These four parts are the main ones that are needed to be upgraded in your car, it’s not like they are needed to be done at once but they all add their own benefit to the car’s overall performance. Therefore, it would be wise to upgrade them all.</p>
-    <?php echo $_smarty_tpl->getSubTemplate ("blocks/footer-product.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
-
     </div>
     <div class="sidebar col-sm-3">
         <div class="side-block first">
@@ -116,4 +114,6 @@ $_smarty_tpl->tpl_vars['model']->_loop = true;
     </div>
     <div class="clearfix"></div>
 </div> 
+<?php echo $_smarty_tpl->getSubTemplate ("blocks/footer-product.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
 <?php }} ?>
