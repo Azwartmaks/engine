@@ -6,7 +6,7 @@
             <h4>{$item.make} {$product.name}</h4>
             <ul>
                 {foreach $item.models as $model}
-                    <li><b>{$model}</b></li>
+                    <li><b>{$model} {$product.name}</b></li>
                 {/foreach}
             </ul>  
         </div>

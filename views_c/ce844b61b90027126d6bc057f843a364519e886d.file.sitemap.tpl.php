@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-07 17:20:41
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-08 14:47:15
          compiled from "views\sitemap.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:1799554b54786f5355-96256025%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ce844b61b90027126d6bc057f843a364519e886d' => 
     array (
       0 => 'views\\sitemap.tpl',
-      1 => 1431008436,
+      1 => 1431085630,
       2 => 'file',
     ),
   ),
@@ -51,6 +51,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['model']->key => $_smarty_tpl->tpl_var
 $_smarty_tpl->tpl_vars['model']->_loop = true;
 ?>
                     <li><b><?php echo $_smarty_tpl->tpl_vars['model']->value;?>
+ <?php echo $_smarty_tpl->tpl_vars['product']->value['name'];?>
 </b></li>
                 <?php } ?>
             </ul>  

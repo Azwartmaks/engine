@@ -11,16 +11,16 @@ class Router{
 /*Link Patterns ***************************************************************/  
         $productalias = $url;
         preg_match("/admin/", $url, $admurl);
-        foreach($products as $value){
+        foreach($products as $value) {
             preg_match("/^([0-9]+)-([a-z]+)-(.*)-{$value['alias']}$/", $url, $mmyp);
             preg_match("/^([a-z]+)-(.*)-{$value['alias']}$/", $url, $mmp);
             preg_match("/^([a-z]+)-{$value['alias']}$/", $url, $mp);
-            if(!empty($mmyp) || !empty($mmp) || !empty($mp)){
+            if (!empty($mmyp) || !empty($mmp) || !empty($mp)) {
                 $current_product = $value['alias'];
-                break;                
+                break;
             }
         }
-        
+
 /*Route queries to controllers ************************************************/        
         if(!empty($admurl)){ // Admin panel
             
