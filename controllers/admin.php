@@ -15,7 +15,6 @@ class Admin extends Controller{
     }
     function index(){
         $this->adminview->tables = $this->model->allTables();
-//        var_dump($this->model->allTables());
         $this->adminview->render('index');
     }
     function autorize(){
